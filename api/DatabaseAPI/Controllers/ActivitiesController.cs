@@ -24,7 +24,7 @@ namespace DatabaseAPI.Controllers
         }
 
         [HttpPost("getSchedule/{from}/{to}")]
-        public IActionResult GetSchedule(long from, long to, [FromForm]string group = "", [FromForm]string name = "", [FromForm]string fio = "")
+        public IActionResult GetSchedule(long from, long to, [FromForm]string group, [FromForm]string name, [FromForm]string fio)
         {
             var user = GetUser();
             if (user == null)
@@ -38,19 +38,18 @@ namespace DatabaseAPI.Controllers
                     .AsSplitQuery();
 
 
-                if (group != "")
+                if (!string.IsNullOrEmpty(group))
                 {
                     res = res.Where(a => a.Listeners.Any(l => l.Number == group));
                 }
-                if (name != "")
+                if (!string.IsNullOrEmpty(name))
                 {
                     res = res.Where(a => a.Name.Contains(name));
                 }
-                if(fio != "")
+                if(!string.IsNullOrEmpty(fio))
                 {
                     res = res.Where(a => a.FIO.Contains(fio));
                 }
-
 
                 return new OkObjectResult(new { success = true, schedule = res });
             }
@@ -65,7 +64,7 @@ namespace DatabaseAPI.Controllers
                     .Include(a => a.Listeners)
                     .AsSplitQuery();
 
-            foreach (var person in res.Where(a => a.FIO.Contains(name)))
+            foreach (var person in res.Where(a => name != null ? a.FIO.Contains(name):true))
             {
                 ts.Add(new TeacherSurname()
                 {
@@ -76,6 +75,26 @@ namespace DatabaseAPI.Controllers
 
             return new OkObjectResult(new { success = true, surnames = ts });
         }
+
+
+        [HttpPost("getGroups")]
+        public IActionResult GetGroups([FromForm] string group)
+        {
+            return new OkObjectResult(new { success = true, 
+                groups = _db.Groups.Where(g => group != null ? g.Number.Contains(group) : true).Select(g => g.Number)
+            });
+        }
+
+        [HttpPost("getNames")]
+        public IActionResult GetNames([FromForm] string name)
+        {
+            return new OkObjectResult(new
+            {
+                success = true,
+                names = _db.Activities.Where(a => name != null?a.Name.Contains(name):true).Select(a => a.Name)
+            });
+        }
+
 
         [HttpGet("search/{text}")]
         public IActionResult Search(string text)

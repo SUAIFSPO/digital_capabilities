@@ -45,9 +45,9 @@ namespace DatabaseAPI.Controllers
         }
 
         [HttpPost("recovery")]
-        public IActionResult Recovery([FromForm]string login, [FromForm]string fio)
+        public IActionResult Recovery([FromForm]string login, [FromForm]string word)
         {
-            if(_db.Users.Any(u => u.Login == login && u.Name == fio))
+            if(_db.Users.Any(u => u.Login == login && u.RecoveryWord == word))
             {
                 var user = _db.Users.Where(u => u.Login == login).First();
                 string newPass = RandomString(10);
