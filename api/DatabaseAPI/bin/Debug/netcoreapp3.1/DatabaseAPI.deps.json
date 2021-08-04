@@ -24,6 +24,7 @@
     ".NETCoreApp,Version=v3.1": {
       "DatabaseAPI/1.0.0": {
         "dependencies": {
+          "Ical.Net": "4.2.0",
           "Microsoft.EntityFrameworkCore": "5.0.8",
           "Microsoft.EntityFrameworkCore.Sqlite": "5.0.8",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
@@ -231,7 +232,6 @@
           "System.Resources.Reader": "4.1.2.0",
           "System.Resources.ResourceManager": "4.1.2.0",
           "System.Resources.Writer": "4.1.2.0",
-          "System.Runtime.CompilerServices.Unsafe": "4.0.6.0",
           "System.Runtime.CompilerServices.VisualC": "4.1.2.0",
           "System.Runtime": "4.2.2.0",
           "System.Runtime.Extensions": "4.2.2.0",
@@ -300,6 +300,20 @@
         },
         "compile": {
           "DatabaseAPI.dll": {}
+        }
+      },
+      "Ical.Net/4.2.0": {
+        "dependencies": {
+          "NodaTime": "3.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Ical.Net.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Ical.Net.dll": {}
         }
       },
       "Microsoft.Data.Sqlite.Core/5.0.8": {
@@ -539,6 +553,20 @@
           "lib/netcoreapp3.0/Microsoft.Extensions.Primitives.dll": {}
         }
       },
+      "NodaTime/3.0.0": {
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "4.7.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/NodaTime.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/NodaTime.dll": {}
+        }
+      },
       "SQLitePCLRaw.bundle_e_sqlite3/2.0.4": {
         "dependencies": {
           "SQLitePCLRaw.core": "2.0.4",
@@ -691,6 +719,17 @@
         }
       },
       "System.Memory/4.5.3": {},
+      "System.Runtime.CompilerServices.Unsafe/4.7.1": {
+        "runtime": {
+          "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll": {
+            "assemblyVersion": "4.0.6.0",
+            "fileVersion": "4.700.20.12001"
+          }
+        },
+        "compile": {
+          "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+        }
+      },
       "System.Text.Encodings.Web/5.0.0": {
         "runtime": {
           "lib/netcoreapp3.0/System.Text.Encodings.Web.dll": {
@@ -1943,12 +1982,6 @@
         },
         "compileOnly": true
       },
-      "System.Runtime.CompilerServices.Unsafe/4.0.6.0": {
-        "compile": {
-          "System.Runtime.CompilerServices.Unsafe.dll": {}
-        },
-        "compileOnly": true
-      },
       "System.Runtime.CompilerServices.VisualC/4.1.2.0": {
         "compile": {
           "System.Runtime.CompilerServices.VisualC.dll": {}
@@ -2329,6 +2362,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Ical.Net/4.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Dz6cp/EuESEUKtAeP0lHs8vGFKz9fOpiY3gFZSVb2lTpnmI14NtBgcBsUxuFwtIlucJ8Q0hyi+7Ri5bqoWyr8w==",
+      "path": "ical.net/4.2.0",
+      "hashPath": "ical.net.4.2.0.nupkg.sha512"
+    },
     "Microsoft.Data.Sqlite.Core/5.0.8": {
       "type": "package",
       "serviceable": true,
@@ -2455,6 +2495,13 @@
       "path": "microsoft.extensions.primitives/5.0.0",
       "hashPath": "microsoft.extensions.primitives.5.0.0.nupkg.sha512"
     },
+    "NodaTime/3.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ZauY6Ihs+abkPCpgIafCj92sl+cDqFbvwrJj9Ga0dteWIYg+A5FeoteBzgzez/cyBeukl2kbDTt4qtpTbHvqOw==",
+      "path": "nodatime/3.0.0",
+      "hashPath": "nodatime.3.0.0.nupkg.sha512"
+    },
     "SQLitePCLRaw.bundle_e_sqlite3/2.0.4": {
       "type": "package",
       "serviceable": true,
@@ -2510,6 +2557,13 @@
       "sha512": "sha512-3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA==",
       "path": "system.memory/4.5.3",
       "hashPath": "system.memory.4.5.3.nupkg.sha512"
+    },
+    "System.Runtime.CompilerServices.Unsafe/4.7.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zOHkQmzPCn5zm/BH+cxC1XbUS3P4Yoi3xzW7eRgVpDR2tPGSzyMZ17Ig1iRkfJuY0nhxkQQde8pgePNiA7z7TQ==",
+      "path": "system.runtime.compilerservices.unsafe/4.7.1",
+      "hashPath": "system.runtime.compilerservices.unsafe.4.7.1.nupkg.sha512"
     },
     "System.Text.Encodings.Web/5.0.0": {
       "type": "package",
@@ -3546,11 +3600,6 @@
       "sha512": ""
     },
     "System.Resources.Writer/4.1.2.0": {
-      "type": "referenceassembly",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "System.Runtime.CompilerServices.Unsafe/4.0.6.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""

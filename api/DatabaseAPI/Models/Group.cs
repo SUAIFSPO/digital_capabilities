@@ -9,7 +9,7 @@ namespace DatabaseAPI.Models
     public class Group
     {
         public int Id { get; set; }
-        public int Number { get; set; }
+        public string Number { get; set; }
         [JsonIgnore]
         public Activity Activity { get; set; }
         [JsonIgnore]

@@ -10,7 +10,6 @@ namespace DatabaseAPI.Models
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Activity> Activities { get; set; }
-        public DbSet<DaySchedule> DaySchedules { get; set; }
         public DbSet<Group> Groups { get; set; }
         public ApplicationContext(DbContextOptions options) : base(options)
         {
@@ -22,11 +21,6 @@ namespace DatabaseAPI.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DaySchedule>()
-                .HasMany(d => d.Activities)
-                .WithOne(a => a.Schedule)
-                .HasForeignKey(p => p.ScheduleId);
-
             modelBuilder.Entity<Activity>()
                 .HasMany(a => a.Listeners)
                 .WithOne(g => g.Activity)
@@ -43,20 +37,17 @@ namespace DatabaseAPI.Models
                 FIO = "Константин Ильич",
                 StartTime = DateTime.Now.AddDays(1),
                 EndTime = DateTime.Now.AddDays(1).AddHours(1),
+                Link = "https://google.com",
                 Listeners = new List<Group>()
                 {
                     new Group()
                     {
-                        Number = 22
+                        Number = "22"
                     }
                 }
             });
 
-            DaySchedules.Add(new DaySchedule()
-            {
-                Activities = activities,
-                Date = DateTime.Now.AddDays(1),
-            });
+            Activities.AddRange(activities);
 
             Users.Add(new User()
             {
@@ -74,6 +65,14 @@ namespace DatabaseAPI.Models
                 Type = "user",
             });
 
+
+            Users.Add(new User()
+            {
+                Login = "recovery",
+                Name = "Recovery",
+                Password = "rec",
+                Type = "user",
+            });
 
 
             SaveChanges();

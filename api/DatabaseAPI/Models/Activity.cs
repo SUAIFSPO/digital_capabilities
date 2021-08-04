@@ -15,12 +15,6 @@ namespace DatabaseAPI.Models
         public List<Group> Listeners { get; set; }
         public string FIO { get; set; }
         public string Link { get; set; }
-
-        [JsonIgnore]
-        public DaySchedule Schedule { get; set; }
-
-        [JsonIgnore] 
-        public int ScheduleId { get; set; }
     }
 }
   
