@@ -24,7 +24,7 @@ namespace DatabaseAPI.Controllers
         }
 
         [HttpPost("getSchedule/{from}/{to}")]
-        public IActionResult GetSchedule(long from, long to, [FromForm]string group, [FromForm]string name, [FromForm]string fio)
+        public IActionResult GetSchedule(long from, long to, [FromForm] string group, [FromForm] string name, [FromForm] string fio)
         {
             var user = GetUser();
             if (user == null)
@@ -46,7 +46,7 @@ namespace DatabaseAPI.Controllers
                 {
                     res = res.Where(a => a.Name.Contains(name));
                 }
-                if(!string.IsNullOrEmpty(fio))
+                if (!string.IsNullOrEmpty(fio))
                 {
                     res = res.Where(a => a.FIO.Contains(fio));
                 }
@@ -57,14 +57,14 @@ namespace DatabaseAPI.Controllers
         }
 
         [HttpPost("getFio")]
-        public IActionResult GetFio([FromForm]string name)
+        public IActionResult GetFio([FromForm] string name)
         {
             List<TeacherSurname> ts = new List<TeacherSurname>();
             IQueryable<Activity> res = _db.Activities
                     .Include(a => a.Listeners)
                     .AsSplitQuery();
 
-            foreach (var person in res.Where(a => name != null ? a.FIO.Contains(name):true))
+            foreach (var person in res.Where(a => name != null ? a.FIO.Contains(name) : true))
             {
                 ts.Add(new TeacherSurname()
                 {
@@ -80,7 +80,7 @@ namespace DatabaseAPI.Controllers
         [HttpPost("getGroups")]
         public IActionResult GetGroups([FromForm] string group)
         {
-            return new OkObjectResult(new { success = true, 
+            return new OkObjectResult(new { success = true,
                 groups = _db.Groups.Where(g => group != null ? g.Number.Contains(group) : true).Select(g => g.Number)
             });
         }
@@ -91,7 +91,7 @@ namespace DatabaseAPI.Controllers
             return new OkObjectResult(new
             {
                 success = true,
-                names = _db.Activities.Where(a => name != null?a.Name.Contains(name):true).Select(a => a.Name)
+                names = _db.Activities.Where(a => name != null ? a.Name.Contains(name) : true).Select(a => a.Name)
             });
         }
 
@@ -118,18 +118,19 @@ namespace DatabaseAPI.Controllers
             return new OkObjectResult(
                 new { success = true, activities = _db.Activities
                     .Include(a => a.Listeners)
-                    .ToList() 
-            });
+                    .ToList()
+                });
             // return BadRequest();
         }
 
         [HttpPost("create")]
-        public IActionResult CreateNewActivity([FromForm]Activity activity)
+        public IActionResult CreateNewActivity([FromForm] Activity activity, [FromForm]string listeners)
         {
             var user = GetUser();
-            if(user != null && user.Type == "administrator")
+            if(user != null && user.Type == "administrator" && !string.IsNullOrEmpty(listeners))
             {
                 _db.Activities.Add(activity);
+                activity.Listeners = listeners.Split(";").Select(s => _db.Groups.Where(g => g.Number == s).First()).ToList();
                 _db.SaveChanges();
 
                 return Ok();
@@ -159,7 +160,6 @@ namespace DatabaseAPI.Controllers
             {
                 string descr = string.Join(", ", activity.Listeners.Select(l => l.Number));
                 
-                //Repeat daily for 5 days
                 CalendarEvent e = new CalendarEvent()
                 {
                     Url = new Uri(activity.Link),
