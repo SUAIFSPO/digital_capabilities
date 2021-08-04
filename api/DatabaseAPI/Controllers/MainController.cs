@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 namespace DatabaseAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("")]
     public class MainController : AbstractController
     {
         public MainController(ApplicationContext db) : base(db)
@@ -17,6 +17,10 @@ namespace DatabaseAPI.Controllers
         }
 
 
-        
+        [HttpGet("")]
+        public string Index()
+        {
+            return "Приложение запущено, все в порядке...";
+        }
     }
 }
