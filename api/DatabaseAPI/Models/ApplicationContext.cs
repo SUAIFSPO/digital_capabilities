@@ -66,6 +66,14 @@ namespace DatabaseAPI.Models
                 Type = "administrator",
             });
 
+            Users.Add(new User()
+            {
+                Login = "user",
+                Name = "Иван Сидоров",
+                Password = "user1",
+                Type = "user",
+            });
+
 
 
             SaveChanges();
