@@ -1,5 +1,6 @@
 package com.jerael.universityscheduler.ui
 
+import android.R.attr
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +10,12 @@ import com.jerael.universityscheduler.utils.recoveryPassword
 import com.jerael.universityscheduler.utils.showAlertDialog
 import com.jerael.universityscheduler.utils.showToast
 import kotlinx.android.synthetic.main.activity_password_recovery.*
+import android.R.attr.label
+
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+
 
 class PasswordRecoveryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,15 +29,23 @@ class PasswordRecoveryActivity : AppCompatActivity() {
         button_recovery.setOnClickListener {
 
             val login = recovery_login.text.toString()
-            val fio = recovery_fio.text.toString()
+            val word = recovery_word.text.toString()
 
-            if (checkFields(login, fio)) {
-                recoveryPassword(this, login, fio) { password ->
+            if (checkFields(login, word)) {
+                recoveryPassword(this, login, word) { password ->
                     if (password != null) {
 
-                        val title = "Ваш пароль"
+                        val message = "Ваш пароль cкопирован в буфер обмена"
 
-                        showAlertDialog(this, password, title)
+                        val clipboard: ClipboardManager =
+                            getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                        val clip = ClipData.newPlainText(label.toString(), password)
+                        clipboard.setPrimaryClip(clip)
+
+                        showToast(message)
+
+                        startActivity(Intent(this, AuthActivity::class.java))
+                        finish()
                     }
                 }
             }
@@ -39,17 +54,22 @@ class PasswordRecoveryActivity : AppCompatActivity() {
 
     private fun checkFields(login: String, fio: String): Boolean {
 
-        return if (login.contains(" ") || fio.contains(" ")) {
-            showToast("Пробелы в полях недопустимы")
-            false
-        } else if (login.isEmpty()) {
-            showToast("Поле Логин не может быть пустым")
-            false
-        } else if (fio.isEmpty()) {
-            showToast("Поле ФИО не может быть пустым")
-            false
-        } else {
-            true
+        return when {
+            login.contains(" ") -> {
+                showToast("Пробелы в поле Логин недопустимы")
+                false
+            }
+            login.isEmpty() -> {
+                showToast("Поле Логин не может быть пустым")
+                false
+            }
+            fio.isEmpty() -> {
+                showToast("Поле ФИО не может быть пустым")
+                false
+            }
+            else -> {
+                true
+            }
         }
     }
 
