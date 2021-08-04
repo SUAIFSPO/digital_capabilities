@@ -8,6 +8,7 @@ export default () => {
   const token = useSelector(({ commonReducer }) => commonReducer.token);
   return (
     <Switch>
+      <Route exact path='/' component={!token ? App : App2} />
       <Route exact path='/auth' component={!token ? AuthorizationPage : App} />
       <Route path='/sheduler' component={token ? ShedulerPage : App2} />
     </Switch>
