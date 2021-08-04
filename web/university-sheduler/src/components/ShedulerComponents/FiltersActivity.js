@@ -7,7 +7,7 @@ import { setGroupFilter } from "../../redux/common/actions";
 import { API_URL } from "../../variables";
 import "./styles.css";
 
-const FilterGroup = () => {
+const FiltersActivity = () => {
   const [name, setName] = useState("");
   const [fio, setFio] = useState([]);
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const FilterGroup = () => {
   }, [name]);
 
   return (
-    <div style={{ marginLeft: "30px" }}>
+    <div>
       <Autocomplete
         id='combo-box-demo'
         options={fio}
@@ -33,13 +33,13 @@ const FilterGroup = () => {
         getOptionLabel={({ group }) => group}
         selectOnFocus={true}
         onSelect={(data) => setName(data.target.value)}
-        style={{ width: 250 }}
+        style={{ width: 400 }}
         renderInput={(params) => (
           <TextField
             {...params}
             onChange={(e) => setName(e.target.value)}
             variant='outlined'
-            label='Введите номер группы'
+            label='Введите  название предмета'
             fullWidth
           />
         )}
@@ -47,4 +47,4 @@ const FilterGroup = () => {
     </div>
   );
 };
-export default FilterGroup;
+export default FiltersActivity;

@@ -15,7 +15,9 @@ const Card = ({ startTime, endTime, fio, name, groups, link }) => {
           <span key={number}>{`${number}, `}</span>
         ))}
       </p>
-      <button onClick={() => alert(link)}>Подключиться</button>
+      <button onClick={() => alert(link)} style={{ cursor: "pointer" }}>
+        Подключиться
+      </button>
     </div>
   );
 };
