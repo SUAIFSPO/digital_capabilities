@@ -2,6 +2,7 @@ import { addDays } from "date-fns";
 
 import SheduleDay from "../../components/ShedulerComponents/SheduleDay";
 import Filters from "../../components/ShedulerComponents/Filters";
+import FilterGroup from "../../components/ShedulerComponents/FiltersGroup";
 import "./styles.css";
 const listDate = [0, 1, 2, 3, 4, 5, 6];
 
@@ -10,7 +11,10 @@ const ShedulerPage = () => {
 
   return (
     <div>
-      <Filters />
+      <div className='groupFilters'>
+        <Filters />
+        <FilterGroup />
+      </div>
       <div className='sheduler'>
         {dates.map((date) => (
           <SheduleDay date={date} key={date} />

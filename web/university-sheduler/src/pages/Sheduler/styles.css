@@ -6,7 +6,11 @@
   padding: 20px 100px;
 }
 .filters {
-  width: 40%;
-  padding-top: 30px;
+  margin-right: 30px;
   padding-left: 100px;
+}
+
+.groupFilters {
+  display: flex;
+  padding-top: 30px;
 }

@@ -1,4 +1,4 @@
-import { AUTH, FIO_FILTER } from "./constants";
+import { AUTH, FIO_FILTER, GROUP_FILTER } from "./constants";
 const defaultState = {
   token: "",
 };
@@ -10,6 +10,9 @@ export const commonReducer = (state = defaultState, action) => {
     }
     case FIO_FILTER: {
       return { ...state, teacher: { ...action.payload } };
+    }
+    case GROUP_FILTER: {
+      return { ...state, groupFilter: { ...action.payload } };
     }
     default: {
       return state;
