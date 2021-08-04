@@ -1,3 +1,10 @@
+Для запуска необходим nodejs установленный на компьютере
+В терминале переходим в проект и в нём пишем npm install, после завершения скачки всех зависимостей необходимо написать npm start
+
+Тестовые пользователи:
+Администратор Логин:admin Пароль: admin
+Пользователь Логин:user пароль: user1
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
