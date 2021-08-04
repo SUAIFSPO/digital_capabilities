@@ -12,10 +12,10 @@ export const commonReducer = (state = defaultState, action) => {
       return { ...state, teacher: { ...action.payload } };
     }
     case GROUP_FILTER: {
-      return { ...state, groupFilter: { ...action.payload } };
+      return { ...state, groupFilter: action.payload };
     }
     case ACTIVITY_FILTER: {
-      return { ...state, activityFilter: { ...action.payload } };
+      return { ...state, activityFilter: action.payload };
     }
     default: {
       return state;

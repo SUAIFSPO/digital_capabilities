@@ -15,10 +15,10 @@ const FilterGroup = () => {
     fetch(`${API_URL}/activities/getGroups`, {
       method: "post",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `name=${name}`,
+      body: `group=${name}`,
     })
       .then((data) => data.json())
-      .then((data) => setFio(data?.surnames ?? []))
+      .then((data) => setFio(data?.groups ?? []))
       .catch(() => {
         console.log("Произошла ошибка на сервере ...");
       });
@@ -30,7 +30,7 @@ const FilterGroup = () => {
         id='combo-box-demo'
         options={fio}
         getOptionSelected={(data) => dispatch(setGroupFilter(data))}
-        getOptionLabel={({ group }) => group}
+        getOptionLabel={(group) => group}
         selectOnFocus={true}
         onSelect={(data) => setName(data.target.value)}
         style={{ width: 250 }}

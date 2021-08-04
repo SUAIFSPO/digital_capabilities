@@ -9,7 +9,13 @@ const SheduleDay = ({ date }) => {
   const teacherFilter = useSelector(
     ({ commonReducer }) => commonReducer?.teacher?.fio
   );
-  console.log(teacherFilter, "qewqe");
+  const groupFilter = useSelector(
+    ({ commonReducer }) => commonReducer?.groupFilter
+  );
+  const activityFilter = useSelector(
+    ({ commonReducer }) => commonReducer?.activityFilter
+  );
+  console.log(groupFilter, "qewqe");
   useEffect(() => {
     fetch(
       `http://192.168.0.42:5000/activities/getSchedule/${(
@@ -18,12 +24,14 @@ const SheduleDay = ({ date }) => {
       {
         method: "post",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: `fio=${teacherFilter ?? ""}`,
+        body: `fio=${teacherFilter ?? ""}&group=${groupFilter ?? ""}&name=${
+          activityFilter ?? ""
+        }`,
       }
     )
       .then((data) => data.json())
       .then((data) => setSctivities(data.schedule));
-  }, [teacherFilter]);
+  }, [teacherFilter, groupFilter, activityFilter]);
   return (
     <div>
       <DateWithDay date={date} />
