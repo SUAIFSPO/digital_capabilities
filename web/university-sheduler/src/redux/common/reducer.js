@@ -17,6 +17,9 @@ export const commonReducer = (state = defaultState, action) => {
     case ACTIVITY_FILTER: {
       return { ...state, activityFilter: action.payload };
     }
+    case "SIGN_OUT": {
+      return { ...state, token: "" };
+    }
     default: {
       return state;
     }

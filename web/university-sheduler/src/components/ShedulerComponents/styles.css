@@ -4,3 +4,8 @@
   text-align: left;
   padding: 8px;
 }
+.authForm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}

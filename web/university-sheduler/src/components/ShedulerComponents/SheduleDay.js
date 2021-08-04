@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { startOfDay, endOfDay } from "date-fns";
 import Card from "./Card";
 import DateWithDay from "./DateWithDay";
+import { API_URL } from "../../variables";
 
 const SheduleDay = ({ date }) => {
   const [activities, setSctivities] = useState([]);
@@ -18,7 +19,7 @@ const SheduleDay = ({ date }) => {
   console.log(groupFilter, "qewqe");
   useEffect(() => {
     fetch(
-      `http://192.168.0.42:5000/activities/getSchedule/${(
+      `${API_URL}/activities/getSchedule/${(
         startOfDay(date).getTime() / 1000
       ).toFixed(0)}/${(endOfDay(date).getTime() / 1000).toFixed(0)}`,
       {
