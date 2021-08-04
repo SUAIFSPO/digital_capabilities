@@ -1,0 +1,16 @@
+.sheduler {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: auto;
+  gap: 20px;
+  padding: 20px 100px;
+}
+.filters {
+  margin-right: 30px;
+  padding-left: 100px;
+}
+
+.groupFilters {
+  display: flex;
+  padding-top: 30px;
+}
