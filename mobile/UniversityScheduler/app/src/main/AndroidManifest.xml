@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UniversityScheduler">
         <activity
+            android:name=".ui.MainActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.PasswordRecoveryActivity"
             android:exported="true" />
         <activity

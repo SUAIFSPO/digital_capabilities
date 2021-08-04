@@ -1,5 +1,6 @@
 package com.jerael.universityscheduler.utils
 
+import com.jerael.universityscheduler.models.ActivitiesResponse
 import com.jerael.universityscheduler.models.AuthResponse
 import com.jerael.universityscheduler.models.PasswordRecoveryResponse
 import okhttp3.OkHttpClient
@@ -9,10 +10,10 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
-import retrofit2.http.Multipart
-import retrofit2.http.POST
-import retrofit2.http.Part
+import retrofit2.http.*
+import com.google.gson.GsonBuilder
 
+import com.google.gson.Gson
 
 interface Server {
 
@@ -27,8 +28,15 @@ interface Server {
     @POST("auth/recovery")
     fun passwordRecovery(
         @Part("login") login: RequestBody,
-        @Part("fio") fio: RequestBody
+        @Part("word") word: RequestBody
     ): Call<PasswordRecoveryResponse>
+
+    @POST("activities/getSchedule/{startDate}/{endDate}")
+    fun getSchedule(
+        //@Header("Token") token: String,
+        @Path("startDate") startDate: Long,
+        @Path("endDate") endDate: Long
+    ): Call<ActivitiesResponse>
 
     companion object {
 
