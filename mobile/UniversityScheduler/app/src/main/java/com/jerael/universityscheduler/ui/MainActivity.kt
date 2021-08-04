@@ -1,19 +1,24 @@
 package com.jerael.universityscheduler.ui
 
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.marginTop
 import com.jerael.universityscheduler.R
+import com.jerael.universityscheduler.utils.ActivitiesAdapter
 import com.jerael.universityscheduler.utils.getSchedule
-import com.jerael.universityscheduler.utils.showToast
-import java.text.SimpleDateFormat
+import kotlinx.android.synthetic.main.activity_main.*
+import org.w3c.dom.Text
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,18 +34,25 @@ class MainActivity : AppCompatActivity() {
 
         val startDate = currentDate.atStartOfDay(ZoneId.systemDefault()).toEpochSecond()
 
-        val endDate = currentDate.plusDays(7).atStartOfDay(ZoneId.systemDefault()).toEpochSecond()
+        val endDate = currentDate.plusDays(6).atStartOfDay(ZoneId.systemDefault()).toEpochSecond()
 
-        for (i in 0 until 8) {
+        for (i in 0 until 7) {
             val newDate = currentDate.plusDays(i.toLong()).format(formatter)
             daysList.add(newDate)
-            Log.d("asd", daysList[i])
+        }
+
+        getSchedule(this, startDate, endDate) { activities ->
+
+            if (activities != null) {
+
+                val activitiesAdapter = ActivitiesAdapter()
+                activitiesAdapter.initActivities(activities)
+                activitiesAdapter.initDays(daysList)
+
+                recycler_view.adapter = activitiesAdapter
+            }
         }
 
 
-
-        getSchedule(this, startDate, endDate) {
-
-        }
     }
 }

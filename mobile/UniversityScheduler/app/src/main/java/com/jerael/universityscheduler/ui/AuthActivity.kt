@@ -28,9 +28,12 @@ class AuthActivity : AppCompatActivity() {
 
             if (checkFields(login, password)) {
 
-                login(this, login, password) {
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
+                login(this, login, password) { isSuccess ->
+
+                    if (isSuccess) {
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
+                    }
                 }
             }
 

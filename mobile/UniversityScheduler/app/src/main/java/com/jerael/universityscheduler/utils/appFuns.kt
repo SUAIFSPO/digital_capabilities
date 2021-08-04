@@ -29,7 +29,7 @@ fun login(
     val loginRB: RequestBody = login.toRequestBody("text/plain".toMediaTypeOrNull())
     val passwordRB: RequestBody = password.toRequestBody("text/plain".toMediaTypeOrNull())
 
-    val call = Server.createServer("http://192.168.0.42:5000").auth(loginRB, passwordRB)
+    val call = Server.createServer("http://3.17.59.226").auth(loginRB, passwordRB)
 
     call.enqueue(object : Callback<AuthResponse> {
         override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
@@ -48,10 +48,7 @@ fun login(
 
                 function(true)
             } else {
-                val errorMessage = JsonParser.parseString(
-                    response.body().toString()
-                ).asJsonObject.getAsJsonPrimitive("error").asString
-                context.showToast(errorMessage)
+                context.showToast("Неправильный логин или пароль")
                 function(false)
             }
         }
@@ -83,7 +80,7 @@ fun recoveryPassword(
     val loginRB: RequestBody = login.toRequestBody("text/plain".toMediaTypeOrNull())
     val wordRB: RequestBody = word.toRequestBody("text/plain".toMediaTypeOrNull())
 
-    val call = Server.createServer("http://192.168.0.42:5000").passwordRecovery(loginRB, wordRB)
+    val call = Server.createServer("http://3.17.59.226").passwordRecovery(loginRB, wordRB)
 
     call.enqueue(object : Callback<PasswordRecoveryResponse> {
         override fun onResponse(
@@ -114,7 +111,7 @@ fun getSchedule(context: AppCompatActivity, startDate: Long, endDate: Long, func
 
     val token = TokenUtil.getToken(context).toString()
 
-    val call = Server.createServer("http://192.168.0.42:5000").getSchedule(startDate, endDate)
+    val call = Server.createServer("http://3.17.59.226").getSchedule(startDate, endDate)
 
     call.enqueue(object : Callback<ActivitiesResponse> {
         override fun onResponse(
@@ -156,8 +153,6 @@ fun getSchedule(context: AppCompatActivity, startDate: Long, endDate: Long, func
 
                     activities.add(activity)
                 }
-
-                context.showToast(activities[0].listeners?.get(0)?.number.toString())
 
                 function(activities)
             } else {

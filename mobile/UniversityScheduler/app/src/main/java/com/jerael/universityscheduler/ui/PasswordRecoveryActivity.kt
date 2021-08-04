@@ -45,6 +45,7 @@ class PasswordRecoveryActivity : AppCompatActivity() {
                         showToast(message)
 
                         startActivity(Intent(this, AuthActivity::class.java))
+                        finish()
                     }
                 }
             }

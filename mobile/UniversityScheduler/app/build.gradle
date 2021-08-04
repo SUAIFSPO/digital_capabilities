@@ -17,6 +17,13 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            def versionName = variant.versionName
+            outputFileName = "university_scheduler_${versionName}.apk"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
