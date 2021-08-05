@@ -16,7 +16,6 @@ const SheduleDay = ({ date }) => {
   const activityFilter = useSelector(
     ({ commonReducer }) => commonReducer?.activityFilter
   );
-  console.log(groupFilter, "qewqe");
   useEffect(() => {
     fetch(
       `${API_URL}/activities/getSchedule/${(
@@ -37,7 +36,10 @@ const SheduleDay = ({ date }) => {
     <div>
       <DateWithDay date={date} />
       {activities?.map(
-        ({ name, startTime, endTime, listeners, fio, link }, i) => (
+        (
+          { name, startTime, endTime, listeners, fio, link, id, isRecorded },
+          i
+        ) => (
           <Card
             startTime={startTime}
             endTime={endTime}
@@ -46,6 +48,9 @@ const SheduleDay = ({ date }) => {
             groups={listeners}
             key={`${date}_${i}`}
             link={link}
+            date={date}
+            id={id}
+            isRecorded={isRecorded}
           />
         )
       )}

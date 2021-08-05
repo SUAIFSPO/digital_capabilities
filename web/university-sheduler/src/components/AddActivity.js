@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import Autocomplete from "@material-ui/lab/Autocomplete";
+import validUrl from "valid-url";
 import {
   Button,
   TextField,
@@ -46,7 +46,6 @@ const RecoveryPass = ({ open, setOpen }) => {
             }}
             type='datetime-local'
             onChange={(e) => setStart(e.target.value)}
-            defaultValue='2017-05-24T10:30'
             InputLabelProps={{
               shrink: true,
             }}
@@ -60,7 +59,6 @@ const RecoveryPass = ({ open, setOpen }) => {
             }}
             type='datetime-local'
             onChange={(e) => setEnd(e.target.value)}
-            defaultValue='2017-05-24T10:30'
             InputLabelProps={{
               shrink: true,
             }}
@@ -92,7 +90,14 @@ const RecoveryPass = ({ open, setOpen }) => {
           <Button
             onClick={() => {
               setOpen(false);
-              if (name && start && end && fio && link && groups) {
+              if (
+                name &&
+                start &&
+                end &&
+                fio &&
+                validUrl.isUri(link) &&
+                groups
+              ) {
                 fetch(`${API_URL}/activities/create`, {
                   method: "post",
                   headers: {
