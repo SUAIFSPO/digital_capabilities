@@ -2,28 +2,20 @@ package com.jerael.studentrecognition.ui
 
 import android.app.AlertDialog
 import android.content.Intent
-import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
 import com.jerael.studentrecognition.R
-import com.jerael.studentrecognition.utils.sendPhoto
-import com.jerael.studentrecognition.utils.showToast
-import kotlinx.android.synthetic.main.activity_main.*
-import okhttp3.ResponseBody
-import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStream
-import java.io.OutputStream
-import java.util.*
-import android.provider.MediaStore
 import com.jerael.studentrecognition.utils.FileUtil
+import com.jerael.studentrecognition.utils.sendPhoto
+import kotlinx.android.synthetic.main.activity_main.*
+import java.io.File
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -36,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     private val takeImageResult: ActivityResultLauncher<Uri> =
         registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
             if (isSuccess) {
-                latestTmpUri?.let { uriImage ->
+                latestTmpUri?.let { imageUri ->
 
                     loadingDialog?.show()
 
@@ -44,17 +36,12 @@ class MainActivity : AppCompatActivity() {
 
                         loadingDialog?.dismiss()
 
-                        if (fio != null) {
-                            showToast(fio)
-                            //TODO: Переход
-
-//                            val intent = Intent(this, ResultActivity::class.java)
-//                            intent.putExtra("uri", uriImage.toString())
-//                            startActivity(intent)
-                        }
+                        val intent = Intent(this, ResultActivity::class.java)
+                        intent.putExtra("uri", imageUri.toString())
+                        intent.putExtra("fio", fio)
+                        startActivity(intent)
                     }
 
-                    loadingDialog?.cancel()
                 }
             }
         }
@@ -72,14 +59,10 @@ class MainActivity : AppCompatActivity() {
 
                     loadingDialog?.dismiss()
 
-                    if (fio != null) {
-                        showToast(fio)
-                        //TODO: Переход
-
-//                    val intent = Intent(this, ResultActivity::class.java)
-//                    intent.putExtra("uri", uriImage.toString())
-//                    startActivity(intent)
-                    }
+                    val intent = Intent(this, ResultActivity::class.java)
+                    intent.putExtra("uri", imageUri.toString())
+                    intent.putExtra("fio", fio)
+                    startActivity(intent)
                 }
             }
         }
