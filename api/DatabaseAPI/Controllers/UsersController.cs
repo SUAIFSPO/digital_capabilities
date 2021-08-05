@@ -18,7 +18,7 @@ namespace DatabaseAPI.Controllers
     [ApiController]
     public class UsersController : AbstractController
     {
-        private const int diff = 10;
+        private const int diff = 20;
         public UsersController(ApplicationContext db) : base(db)
         {
         }
@@ -54,7 +54,10 @@ namespace DatabaseAPI.Controllers
                             }
                             user.Photo = Encoding.Default.GetBytes(data);
 
-                            var lines = GetFaceLines(file.OpenReadStream());
+                            long fs = GetFaceSize(file.OpenReadStream());
+                            user.FaceSize = fs;
+
+                            var lines = GetFaceLines(file.OpenReadStream(), fs);
                             user.Face = string.Join(";", lines);
 
                             successed++;
@@ -107,11 +110,10 @@ namespace DatabaseAPI.Controllers
             return new BadRequestObjectResult(new { success = false, error = "Пользователь с таким именем не найден" });
         }
 
-        private List<double> GetFaceLines(Stream file)
+        private List<double> GetFaceLines(Stream file, long size)
         {
             using var shapePredictor = ShapePredictor.Deserialize("shape_predictor_68_face_landmarks.dat");
             using var fd = Dlib.GetFrontalFaceDetector();
-            var faceDetector = Dlib.GetFrontalFaceDetector();
             string filename = $"face_{DateTime.Now.ToFileTime()}.jpg";
 
             List<double> result = new List<double>();
@@ -123,8 +125,12 @@ namespace DatabaseAPI.Controllers
                 var shape = shapePredictor.Detect(img, face);
                 for (uint i = 1; i < shape.Parts; i++)
                 {
+                    long del = 1;
+                    if (size != 0)
+                        del = face.Width * face.Height / size;
+
                     double len = Math.Sqrt(Math.Pow(shape.GetPart(i).X - shape.GetPart(i - 1).X, 2) + Math.Pow(shape.GetPart(i).Y - shape.GetPart(i - 1).Y, 2));
-                    result.Add(len);
+                    result.Add(len / del);
                 }
 
             }
@@ -132,16 +138,30 @@ namespace DatabaseAPI.Controllers
             return result;
         }
 
+        private long GetFaceSize(Stream file)
+        {
+            using var fd = Dlib.GetFrontalFaceDetector();
+            string filename = $"face_{DateTime.Now.ToFileTime()}.jpg";
+
+            long result = 0;
+
+            var img = LoadImage(file);
+            var faces = fd.Operator(img);
+            result = faces[0].Width * faces[0].Height;
+
+            return result;
+        }
+
         [HttpPost("identity")]
         public IActionResult Identity(IFormFile file)
         {
-            var first = GetFaceLines(file.OpenReadStream());
+            var first = GetFaceLines(file.OpenReadStream(), 0);
 
             var curUser = GetUser();
 
             User result = null;
             int maxMatched = 0;
-            if(curUser.Groups != null)
+            if(curUser != null && curUser.Groups != null)
             {
                 foreach (var group in curUser.Groups)
                 {
