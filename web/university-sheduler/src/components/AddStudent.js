@@ -44,7 +44,7 @@ const AddStudent = ({ open, setOpen }) => {
             каждая фотография должна быть названа в формате: ФИО_номергруппы.jpg
             Или нажмите кнопку и выберете файлы
             <br />
-            <div class='input__wrapper'>
+            <div className='input__wrapper'>
               <input
                 className='input__file'
                 name='file'
@@ -56,7 +56,7 @@ const AddStudent = ({ open, setOpen }) => {
                   onDrop(event.target.files);
                 }}
               />
-              <label for='input__file' className='input__file-button'>
+              <label htmlFor='input__file' className='input__file-button'>
                 <p className='text-p1'>Выберите файлы</p>
               </label>
             </div>

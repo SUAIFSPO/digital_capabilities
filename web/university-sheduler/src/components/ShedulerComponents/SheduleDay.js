@@ -16,7 +16,6 @@ const SheduleDay = ({ date }) => {
   const activityFilter = useSelector(
     ({ commonReducer }) => commonReducer?.activityFilter
   );
-  console.log(groupFilter, "qewqe");
   useEffect(() => {
     fetch(
       `${API_URL}/activities/getSchedule/${(

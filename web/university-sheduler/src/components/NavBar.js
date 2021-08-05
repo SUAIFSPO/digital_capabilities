@@ -4,6 +4,7 @@ import RecoveryPass from "./RecoveryPass";
 import AddStudent from "./AddStudent";
 import { useDispatch, useSelector } from "react-redux";
 import AddAct from "./AddActivity";
+import SetRole from "./SetRole";
 import { API_URL } from "../variables";
 function NavBar({ token }) {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ function NavBar({ token }) {
   const [open, setOpen] = useState(false);
   const [openAct, setOpenAct] = useState(false);
   const [openS, setOpenS] = useState(false);
+  const [openR, setOpenR] = useState(false);
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
       <Button
@@ -37,12 +39,11 @@ function NavBar({ token }) {
           <input
             style={{ marginLeft: "15px" }}
             type='file'
-            onChange={async (e) => {
+            onChange={(e) => {
               const data = e.target.files[0];
               const formData = new FormData();
               formData.append("file", data);
-
-              const response = await fetch(`${API_URL}/activities/import`, {
+              fetch(`${API_URL}/activities/import`, {
                 method: "POST",
                 body: formData,
               });
@@ -62,11 +63,19 @@ function NavBar({ token }) {
           >
             Добавить студентов
           </Button>
+          <Button
+            onClick={() => {
+              setOpenR(true);
+            }}
+          >
+            Назначить роль
+          </Button>
         </div>
       )}
       <RecoveryPass open={open} setOpen={setOpen} token={token} />
       <AddAct open={openAct} setOpen={setOpenAct} />
       <AddStudent open={openS} setOpen={setOpenS} />
+      <SetRole open={openR} setOpen={setOpenR} />
     </div>
   );
 }
