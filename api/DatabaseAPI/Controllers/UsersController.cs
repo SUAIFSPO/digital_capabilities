@@ -141,27 +141,30 @@ namespace DatabaseAPI.Controllers
 
             User result = null;
             int maxMatched = 0;
-            foreach(var group in curUser.Groups)
+            if(curUser.Groups != null)
             {
-                foreach (var user in _db.Users.Where(u => u.Groups.Contains(group)))
+                foreach (var group in curUser.Groups)
                 {
-                    int matched = 0;
-                    if (user.Face == null)
-                        continue;
+                    foreach (var user in _db.Users.Where(u => u.Groups.Contains(group)))
+                    {
+                        int matched = 0;
+                        if (user.Face == null)
+                            continue;
 
-                    List<double> userLines = user.Face.Split(";").Select(l => double.Parse(l)).ToList();
-                    int points = Math.Min(userLines.Count, first.Count);
-                    for (int i = 0; i < points; i++)
-                    {
-                        if (Math.Abs(first[i] - userLines[i]) <= diff)
+                        List<double> userLines = user.Face.Split(";").Select(l => double.Parse(l)).ToList();
+                        int points = Math.Min(userLines.Count, first.Count);
+                        for (int i = 0; i < points; i++)
                         {
-                            matched++;
+                            if (Math.Abs(first[i] - userLines[i]) <= diff)
+                            {
+                                matched++;
+                            }
                         }
-                    }
-                    if (matched > points / 2 && matched > maxMatched)
-                    {
-                        maxMatched = matched;
-                        result = user;
+                        if (matched > points / 2 && matched > maxMatched)
+                        {
+                            maxMatched = matched;
+                            result = user;
+                        }
                     }
                 }
             }

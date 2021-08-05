@@ -78,3 +78,4 @@ C:\Users\user\Desktop\WorldSkills\digital_capabilities\api\DatabaseAPI\bin\Debug
 C:\Users\user\Desktop\WorldSkills\digital_capabilities\api\DatabaseAPI\obj\Debug\netcoreapp3.1\DatabaseAPI.csproj.CoreCompileInputs.cache
 C:\Users\user\Desktop\WorldSkills\digital_capabilities\api\DatabaseAPI\obj\Debug\netcoreapp3.1\DatabaseAPI.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\user\Desktop\WorldSkills\digital_capabilities\api\DatabaseAPI\obj\Debug\netcoreapp3.1\DatabaseAPI.csprojAssemblyReference.cache
+C:\Users\user\Desktop\WorldSkills\digital_capabilities\api\DatabaseAPI\bin\Debug\netcoreapp3.1\libman.json
