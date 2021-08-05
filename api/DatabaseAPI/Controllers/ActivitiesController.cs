@@ -209,15 +209,25 @@ namespace DatabaseAPI.Controllers
         [HttpPost("setLink")]
         public IActionResult SetLink([FromForm]int id, [FromForm]string newLink)
         {
-            if(_db.Activities.Any(a => a.Id == id))
+            var user = GetUser();
+            if(user.Type != "user")
             {
-                var activity = _db.Activities.First(a => a.Id == id);
-                activity.Link = newLink;
-                activity.IsRecorded = true;
+                if(user.Type == "curator")
+                {
+                    if (user.ActivityId != id)
+                        return new BadRequestObjectResult(new { success = false, error = "Вы не являетель преподавателем этого предмета" });
+                }
+                if (_db.Activities.Any(a => a.Id == id))
+                {
+                    var activity = _db.Activities.First(a => a.Id == id);
+                    activity.Link = newLink;
+                    activity.IsRecorded = true;
 
-                _db.SaveChanges();
-                return Ok();
+                    _db.SaveChanges();
+                    return Ok();
+                }
             }
+            
             return BadRequest();
         }
     }
