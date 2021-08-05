@@ -15,6 +15,8 @@ namespace DatabaseAPI.Models
         public List<Group> Listeners { get; set; }
         public string FIO { get; set; }
         public string Link { get; set; }
+        [JsonIgnore]
+        public List<User> User { get; set; }
     }
 }
   

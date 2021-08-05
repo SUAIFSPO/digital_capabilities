@@ -30,6 +30,11 @@ namespace DatabaseAPI.Models
                 .HasMany(u => u.Groups)
                 .WithOne(g => g.User)
                 .HasForeignKey(g => g.UserId);
+
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Activity)
+                .WithMany(a => a.User)
+                .HasForeignKey(u => u.ActivityId);
         }
 
         private void Init()

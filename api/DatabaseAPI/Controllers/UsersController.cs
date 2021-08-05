@@ -18,7 +18,7 @@ namespace DatabaseAPI.Controllers
     [ApiController]
     public class UsersController : AbstractController
     {
-        private const int diff = 30;
+        private const int diff = 10;
         public UsersController(ApplicationContext db) : base(db)
         {
         }
@@ -55,7 +55,7 @@ namespace DatabaseAPI.Controllers
                             user.Photo = Encoding.Default.GetBytes(data);
 
                             var lines = GetFaceLines(file.OpenReadStream());
-                            user.Face = string.Join(",", lines);
+                            user.Face = string.Join(";", lines);
 
                             successed++;
                         }
@@ -73,7 +73,7 @@ namespace DatabaseAPI.Controllers
         }
 
         [HttpPost("setUserGroups")]
-        public IActionResult SetUserGroups([FromForm]string login, [FromForm]string groups)
+        public IActionResult SetUserGroups([FromForm]string login, [FromForm]string groups, [FromForm]Activity activity)
         {
             if(_db.Users.Any(u => u.Login == login))
             {
@@ -82,7 +82,7 @@ namespace DatabaseAPI.Controllers
                 {
                     var groupsList = groups.Split("_");
                     user.Type = "curator";
-
+                    user.Activity = activity;
                     user.Groups = new List<Group>();
                     foreach (var group in groupsList)
                     {
@@ -142,15 +142,16 @@ namespace DatabaseAPI.Controllers
                 int matched = 0;
                 if (user.Face == null)
                     continue;
-                List<double> userLines = user.Face.Split(",").Select(l => double.Parse(l)).ToList();
-                for (int i = 0; i < first.Count; i++)
+                List<double> userLines = user.Face.Split(";").Select(l => double.Parse(l)).ToList();
+                int points = Math.Min(userLines.Count, first.Count);
+                for (int i = 0; i < points; i++)
                 {
                     if(Math.Abs(first[i] - userLines[i]) <= diff)
                     {
                         matched++;
                     }
                 }
-                if (matched > 20 && matched > maxMatched)
+                if (matched > points / 2 && matched > maxMatched)
                 {
                     maxMatched = matched;
                     result = user;

@@ -21,7 +21,8 @@ namespace DatabaseAPI.Models
         public string Token { get; set; }
         [JsonIgnore]
         public string RecoveryWord { get; set; }
+        public Activity? Activity { get; set; }
         [JsonIgnore]
-        public List<Activity> Activities { get; set; }
+        public int? ActivityId { get; set; }
     }
 }
