@@ -1,0 +1,2 @@
+api/DatabaseAPI/bin/Debug/netcoreapp3.1/runtimes/centos-x64/native/libDlibDotNetNativeDnn.so filter=lfs diff=lfs merge=lfs -text
+*.so filter=lfs diff=lfs merge=lfs -text

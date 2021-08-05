@@ -127,7 +127,7 @@ namespace DatabaseAPI.Controllers
         public IActionResult CreateNewActivity([FromForm] Activity activity, [FromForm]string listeners)
         {
             var user = GetUser();
-            if(user != null && user.Type == "administrator" && !string.IsNullOrEmpty(listeners))
+            if(user != null && user.Type == "administrator" && !string.IsNullOrEmpty(listeners) && !string.IsNullOrEmpty(activity.Name))
             {
                 _db.Activities.Add(activity);
                 activity.Listeners = listeners.Split(";").Select(s => _db.Groups.Where(g => g.Number == s).First()).ToList();
@@ -204,6 +204,31 @@ namespace DatabaseAPI.Controllers
                 _db.SaveChanges();
             }
             return Ok();
+        }
+
+        [HttpPost("setLink")]
+        public IActionResult SetLink([FromForm]int id, [FromForm]string newLink)
+        {
+            var user = GetUser();
+            if(user.Type != "user")
+            {
+                if(user.Type == "curator")
+                {
+                    if (user.ActivityId != id)
+                        return new BadRequestObjectResult(new { success = false, error = "Вы не являетель преподавателем этого предмета" });
+                }
+                if (_db.Activities.Any(a => a.Id == id))
+                {
+                    var activity = _db.Activities.First(a => a.Id == id);
+                    activity.Link = newLink;
+                    activity.IsRecorded = true;
+
+                    _db.SaveChanges();
+                    return Ok();
+                }
+            }
+            
+            return BadRequest();
         }
     }
 }
