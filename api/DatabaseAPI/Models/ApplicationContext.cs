@@ -28,8 +28,8 @@ namespace DatabaseAPI.Models
 
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Groups)
-                .WithOne(g => g.User)
-                .HasForeignKey(g => g.UserId);
+                .WithMany(g => g.User)
+                .UsingEntity(j => j.ToTable("UserGroups"));
 
             modelBuilder.Entity<User>()
                 .HasOne(u => u.Activity)
@@ -40,6 +40,15 @@ namespace DatabaseAPI.Models
         private void Init()
         {
             List<Activity> activities = new List<Activity>();
+            List<Group> groups = new List<Group>();
+
+            for(int i = 10; i < 20; i++)
+            {
+                groups.Add(new Group()
+                {
+                    Number = i.ToString()
+                });
+            }
 
             activities.Add(new Activity()
             {
@@ -50,10 +59,7 @@ namespace DatabaseAPI.Models
                 Link = "https://google.com",
                 Listeners = new List<Group>()
                 {
-                    new Group()
-                    {
-                        Number = "22"
-                    }
+                    groups[0]
                 }
             });
 
@@ -66,10 +72,7 @@ namespace DatabaseAPI.Models
                 Link = "https://yandex.ru",
                 Listeners = new List<Group>()
                 {
-                    new Group()
-                    {
-                        Number = "21"
-                    }
+                    groups[1]
                 }
             });
 
@@ -82,10 +85,7 @@ namespace DatabaseAPI.Models
                 Link = "https://yandex.ru",
                 Listeners = new List<Group>()
                 {
-                    new Group()
-                    {
-                        Number = "81"
-                    }
+                    groups[2]
                 }
             });
 
@@ -98,10 +98,7 @@ namespace DatabaseAPI.Models
                 Link = "https://yandex.ru",
                 Listeners = new List<Group>()
                 {
-                    new Group()
-                    {
-                        Number = "18"
-                    }
+                    groups[3]
                 }
             });
 
@@ -114,10 +111,7 @@ namespace DatabaseAPI.Models
                 Link = "https://yandex.ru",
                 Listeners = new List<Group>()
                 {
-                    new Group()
-                    {
-                        Number = "68"
-                    }
+                    groups[4]
                 }
             });
 
@@ -130,10 +124,7 @@ namespace DatabaseAPI.Models
                 Link = "https://yandex.ru",
                 Listeners = new List<Group>()
                 {
-                    new Group()
-                    {
-                        Number = "22"
-                    }
+                    groups[5]
                 }
             });
 
@@ -146,7 +137,11 @@ namespace DatabaseAPI.Models
                 Name = "Константин Ильич",
                 Password = "nimda",
                 Type = "administrator",
-                RecoveryWord = "recword1"
+                RecoveryWord = "recword1",
+                Groups = new List<Group>()
+                {
+                    groups[0],
+                }
             });
 
             Users.Add(new User()
@@ -155,9 +150,34 @@ namespace DatabaseAPI.Models
                 Name = "Иван Сидоров",
                 Password = "user1",
                 Type = "user",
-                RecoveryWord = "recword2"
+                RecoveryWord = "recword2",
+                Groups = new List<Group>()
+                {
+                    groups[0],
+                }
             });
 
+            for(int j = 1; j < 4; j++)
+            {
+                int g1 = new Random(Environment.TickCount).Next(0, groups.Count - 1);
+
+                for (int i = 0; i < 10; i++)
+                {
+                    Users.Add(new User()
+                    {
+                        Login = $"user{j}{i}",
+                        Name = $"User {j}{i}",
+                        Password = "user",
+                        Type = "user",
+                        RecoveryWord = "user",
+                        Groups = new List<Group>()
+                        {
+                            groups[g1],
+                        }
+                    });
+                }
+            }
+            
 
             Users.Add(new User()
             {
@@ -166,7 +186,14 @@ namespace DatabaseAPI.Models
                 Password = "rec",
                 Type = "user",
                 RecoveryWord = "recword3",
+                Groups = new List<Group>()
+                { 
+                    groups[5],
+                    groups[6],
+                }
             });
+
+            Groups.AddRange(groups);
 
 
             SaveChanges();
