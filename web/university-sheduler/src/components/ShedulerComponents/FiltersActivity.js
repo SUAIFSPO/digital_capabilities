@@ -41,10 +41,12 @@ const FiltersActivity = () => {
       <Autocomplete
         id='combo-box-demo'
         options={fio}
-        getOptionSelected={(data) => dispatch(setActivityFilter(data))}
+        getOptionSelected={(data, a) => dispatch(setActivityFilter(a))}
         getOptionLabel={(name) => name}
         selectOnFocus={true}
-        onSelect={(data) => setName(data.target.value)}
+        onSelect={(data) => {
+          setName(data.target.value);
+        }}
         style={{ width: 400 }}
         renderInput={(params) => (
           <TextField

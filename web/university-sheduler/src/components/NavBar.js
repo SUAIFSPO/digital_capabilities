@@ -12,7 +12,7 @@ function NavBar({ token }) {
   const [open, setOpen] = useState(false);
   const [openAct, setOpenAct] = useState(false);
   return (
-    <div>
+    <div style={{ display: "flex", alignItems: "center" }}>
       <Button
         variant='contained'
         color='secondary'
@@ -28,11 +28,12 @@ function NavBar({ token }) {
         Восстановить пароль
       </Button>
       {isAdmin && (
-        <>
+        <div>
           <a href={`${API_URL}/activities/export`} download>
             Экспорт
           </a>
           <input
+            style={{ marginLeft: "15px" }}
             type='file'
             onChange={async (e) => {
               const data = e.target.files[0];
@@ -52,7 +53,7 @@ function NavBar({ token }) {
           >
             Добавить занятие
           </Button>
-        </>
+        </div>
       )}
       <RecoveryPass open={open} setOpen={setOpen} token={token} />
       <AddAct open={openAct} setOpen={setOpenAct} />

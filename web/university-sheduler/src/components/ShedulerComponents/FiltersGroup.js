@@ -29,10 +29,9 @@ const FilterGroup = () => {
       <Autocomplete
         id='combo-box-demo'
         options={fio}
-        getOptionSelected={(data) => dispatch(setGroupFilter(data))}
+        getOptionSelected={(data, a) => dispatch(setGroupFilter(a))}
         getOptionLabel={(group) => group}
         selectOnFocus={true}
-        onSelect={(data) => setName(data.target.value)}
         style={{ width: 250 }}
         renderInput={(params) => (
           <TextField
