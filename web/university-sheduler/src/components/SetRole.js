@@ -8,6 +8,7 @@ import {
   DialogContent,
   DialogTitle,
   Checkbox,
+  CircularProgress,
 } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { API_URL } from "../variables";
@@ -21,10 +22,13 @@ const RecoveryPass = ({ open, setOpen }) => {
   const [act, setAct] = useState([]);
   const [actName, setActName] = useState("");
   const [lastActname, setLastActName] = useState("");
+  const [isFetch, setIsFetch] = useState(false);
   useEffect(() => {
+    setIsFetch(true);
     fetch(`${API_URL}/users/getAll`)
       .then((data) => data.json())
       .then((data) => {
+        setIsFetch(false);
         setUsers(data);
       });
   }, []);
@@ -63,103 +67,107 @@ const RecoveryPass = ({ open, setOpen }) => {
       >
         <DialogTitle id='form-dialog-title'>Назначение групп</DialogTitle>
         <DialogContent>
-          {users?.map(
-            ({ activity, login, name, type, groups: defaultGroup }, i) => (
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginBottom: "20px",
-                }}
-                key={i}
-              >
-                {`Логин = ${login}, ФИО = ${name}`}
+          {isFetch ? (
+            <CircularProgress color='secondary' />
+          ) : (
+            users?.map(
+              ({ activity, login, name, type, groups: defaultGroup }, i) => (
                 <div
                   style={{
                     display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: "20px",
                   }}
+                  key={i}
                 >
-                  Преподаватель
-                  <br />
-                  <Checkbox
-                    defaultChecked={type === "curator"}
-                    onChange={(e) => {
-                      setIsPrepod(e.target.checked);
+                  {`Логин = ${login}, ФИО = ${name}`}
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
                     }}
-                  />
-                </div>
-                <div style={{ marginLeft: "30px" }}>
-                  <Autocomplete
-                    id='combo-box-demo'
-                    options={groups.filter(
-                      (group) => !newGroup.find((g) => group === g)
-                    )}
-                    defaultValue={defaultGroup.map(({ number }) => number)}
-                    getOptionSelected={(_, a) => {
-                      setNewGroups((data) =>
-                        newGroup.filter((b) => a === b).length === 0
-                          ? [...data, a]
-                          : data
-                      );
+                  >
+                    Преподаватель
+                    <br />
+                    <Checkbox
+                      defaultChecked={type === "curator"}
+                      onChange={(e) => {
+                        setIsPrepod(e.target.checked);
+                      }}
+                    />
+                  </div>
+                  <div style={{ marginLeft: "30px" }}>
+                    <Autocomplete
+                      id='combo-box-demo'
+                      options={groups.filter(
+                        (group) => !newGroup.find((g) => group === g)
+                      )}
+                      defaultValue={defaultGroup.map(({ number }) => number)}
+                      getOptionSelected={(_, a) => {
+                        setNewGroups((data) =>
+                          newGroup.filter((b) => a === b).length === 0
+                            ? [...data, a]
+                            : data
+                        );
+                      }}
+                      getOptionLabel={(group) => group}
+                      selectOnFocus={true}
+                      multiple
+                      style={{ width: 250 }}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          onChange={(e) => setName(e.target.value)}
+                          variant='outlined'
+                          label='Введите номер группы'
+                          fullWidth
+                        />
+                      )}
+                    />
+                  </div>
+                  <div>
+                    <Autocomplete
+                      id='combo-box-demo'
+                      options={act}
+                      getOptionSelected={(data, a) => {
+                        setLastActName(a);
+                      }}
+                      getOptionLabel={(name) => name}
+                      selectOnFocus={true}
+                      style={{ width: 400 }}
+                      defaultValue={activity?.name}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          onChange={(e) => setActName(e.target.value)}
+                          variant='outlined'
+                          label='Введите  название предмета'
+                          fullWidth
+                        />
+                      )}
+                    />
+                  </div>
+                  <Button
+                    onClick={() => {
+                      fetch(`${API_URL}/users/setUserGroups`, {
+                        method: "post",
+                        headers: {
+                          "Content-Type": "application/x-www-form-urlencoded",
+                        },
+                        body: `login=${login}&groups=${newGroup.join(
+                          "_"
+                        )}&activity=${lastActname ?? ""}`,
+                      }).catch((e) => {
+                        alert("Упс... Ошибка на сервере, попробуйте позже");
+                      });
                     }}
-                    getOptionLabel={(group) => group}
-                    selectOnFocus={true}
-                    multiple
-                    style={{ width: 250 }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        onChange={(e) => setName(e.target.value)}
-                        variant='outlined'
-                        label='Введите номер группы'
-                        fullWidth
-                      />
-                    )}
-                  />
+                  >
+                    Отправить
+                  </Button>
                 </div>
-                <div>
-                  <Autocomplete
-                    id='combo-box-demo'
-                    options={act}
-                    getOptionSelected={(data, a) => {
-                      setLastActName(a);
-                    }}
-                    getOptionLabel={(name) => name}
-                    selectOnFocus={true}
-                    style={{ width: 400 }}
-                    defaultValue={activity?.name}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        onChange={(e) => setActName(e.target.value)}
-                        variant='outlined'
-                        label='Введите  название предмета'
-                        fullWidth
-                      />
-                    )}
-                  />
-                </div>
-                <Button
-                  onClick={() => {
-                    fetch(`${API_URL}/users/setUserGroups`, {
-                      method: "post",
-                      headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                      },
-                      body: `login=${login}&groups=${newGroup.join(
-                        "_"
-                      )}&activity=${lastActname ?? ""}`,
-                    }).catch((e) => {
-                      alert("Упс... Ошибка на сервере, попробуйте позже");
-                    });
-                  }}
-                >
-                  Отправить
-                </Button>
-              </div>
+              )
             )
           )}
         </DialogContent>

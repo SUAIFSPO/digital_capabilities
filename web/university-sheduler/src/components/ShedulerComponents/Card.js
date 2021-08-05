@@ -2,9 +2,21 @@ import "./styles.css";
 import { useState } from "react";
 import { format } from "date-fns";
 import AddLink from "../AddLink";
-const Card = ({ startTime, endTime, fio, name, groups, link, id }) => {
+import { useSelector } from "react-redux";
+
+const Card = ({
+  startTime,
+  endTime,
+  fio,
+  name,
+  groups,
+  link,
+  id,
+  isRecorded,
+}) => {
   const [open, setOpen] = useState(false);
   const isDate = new Date() > new Date(endTime);
+  const type = useSelector(({ commonReducer }) => commonReducer.type);
   return (
     <div className='card'>
       <p>{name}</p>
@@ -29,8 +41,29 @@ const Card = ({ startTime, endTime, fio, name, groups, link, id }) => {
         }}
         style={{ cursor: "pointer" }}
       >
-        {isDate ? "Добавить материал" : "Подключиться"}
+        {isDate ? (
+          isRecorded ? (
+            <a href={link}>Посмотреть материал</a>
+          ) : (
+            "Добавить материал"
+          )
+        ) : (
+          "Подключиться"
+        )}
       </button>
+      {isDate && isRecorded && type === "curator" && (
+        <button
+          onClick={() => {
+            if (isDate) {
+              setOpen(true);
+            } else {
+              alert(link);
+            }
+          }}
+        >
+          Изменить материал
+        </button>
+      )}
       {open && <AddLink open={open} setOpen={setOpen} id={id} />}
     </div>
   );

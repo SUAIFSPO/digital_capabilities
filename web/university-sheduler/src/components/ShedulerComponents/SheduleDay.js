@@ -36,7 +36,10 @@ const SheduleDay = ({ date }) => {
     <div>
       <DateWithDay date={date} />
       {activities?.map(
-        ({ name, startTime, endTime, listeners, fio, link, id }, i) => (
+        (
+          { name, startTime, endTime, listeners, fio, link, id, isRecorded },
+          i
+        ) => (
           <Card
             startTime={startTime}
             endTime={endTime}
@@ -47,6 +50,7 @@ const SheduleDay = ({ date }) => {
             link={link}
             date={date}
             id={id}
+            isRecorded={isRecorded}
           />
         )
       )}

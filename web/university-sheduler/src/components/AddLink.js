@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import validUrl from "valid-url";
 import {
   Button,
@@ -13,7 +14,7 @@ import { API_URL } from "../variables";
 const AddLink = ({ open, setOpen, id }) => {
   const [link, setLink] = useState("");
   const handleClose = () => {};
-
+  const token = useSelector(({ commonReducer }) => commonReducer.token);
   return (
     <div>
       <Dialog
@@ -43,11 +44,14 @@ const AddLink = ({ open, setOpen, id }) => {
               if (validUrl.isUri(link)) {
                 fetch(`${API_URL}/activities/setLink`, {
                   method: "post",
+
                   headers: {
+                    Token: token,
                     "Content-Type": "application/x-www-form-urlencoded",
                   },
                   body: `newLink=${link}&id=${id}`,
                 });
+                console.log(token);
               } else {
                 alert("URL не корректен");
               }

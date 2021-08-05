@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
 import { FileDrop } from "react-file-drop";
 import {
   Button,
@@ -14,7 +13,7 @@ import "./ShedulerComponents/styles.css";
 const AddStudent = ({ open, setOpen }) => {
   const [students, setStudents] = useState([]);
   const handleClose = () => {};
-  const token = useSelector(({ commonReducer }) => commonReducer.token);
+
   const styles = {
     border: "1px solid black",
     width: 600,
@@ -66,7 +65,11 @@ const AddStudent = ({ open, setOpen }) => {
           {students?.map((file, i) => (
             <div style={{ display: "flex" }} key={i}>
               <div style={{ position: "relative" }}>
-                <img src={URL.createObjectURL(file)} width={300} />
+                <img
+                  src={URL.createObjectURL(file)}
+                  width={300}
+                  alt={file.name}
+                />
                 <p
                   className='deletePhoto'
                   onClick={() => {
