@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Cp/+gmo2jEYvujvjmDI+9JpSZoCAMsH52AAwCzB22UDmH3CaSljXgtevJYyXREPUKtp813uPHMbOlTNR8iUlQA==",
+  "dgSpecHash": "uuSws9W6j3ieg44gGwhNWaoBPLdRQK/iEYvk+DUv0wXFBj43xoy3Upu7W7M+ErSLSut/QkCv74RoDMBImfVd4w==",
   "success": true,
   "projectFilePath": "C:\\Users\\user\\Desktop\\WorldSkills\\digital_capabilities\\api\\DatabaseAPI\\DatabaseAPI.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\user\\.nuget\\packages\\dlibdotnet\\19.21.0.20210302\\dlibdotnet.19.21.0.20210302.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\ical.net\\4.2.0\\ical.net.4.2.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\microsoft.data.sqlite.core\\5.0.8\\microsoft.data.sqlite.core.5.0.8.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\microsoft.dotnet.platformabstractions\\3.1.6\\microsoft.dotnet.platformabstractions.3.1.6.nupkg.sha512",
@@ -23,6 +24,8 @@
     "C:\\Users\\user\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\5.0.0\\microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\microsoft.extensions.options\\5.0.0\\microsoft.extensions.options.5.0.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0\\microsoft.extensions.primitives.5.0.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\nodatime\\3.0.0\\nodatime.3.0.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.0.4\\sqlitepclraw.bundle_e_sqlite3.2.0.4.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\sqlitepclraw.core\\2.0.4\\sqlitepclraw.core.2.0.4.nupkg.sha512",
@@ -31,6 +34,7 @@
     "C:\\Users\\user\\.nuget\\packages\\system.collections.immutable\\5.0.0\\system.collections.immutable.5.0.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\system.diagnostics.diagnosticsource\\5.0.1\\system.diagnostics.diagnosticsource.5.0.1.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\system.drawing.common\\5.0.1\\system.drawing.common.5.0.1.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.7.1\\system.runtime.compilerservices.unsafe.4.7.1.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\system.text.encodings.web\\5.0.0\\system.text.encodings.web.5.0.0.nupkg.sha512",

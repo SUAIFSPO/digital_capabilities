@@ -11,8 +11,12 @@ namespace DatabaseAPI.Models
         public int Id { get; set; }
         public string Number { get; set; }
         [JsonIgnore]
-        public Activity Activity { get; set; }
+        public Activity? Activity { get; set; }
         [JsonIgnore]
-        public int ActivityId { get; set; }
+        public int? ActivityId { get; set; }
+        [JsonIgnore]
+        public List<User> User { get; set; }
+        [JsonIgnore]
+        public int? UserId { get; set; }
     }
 }
