@@ -73,9 +73,9 @@ function NavBar({ token }) {
         </div>
       )}
       <RecoveryPass open={open} setOpen={setOpen} token={token} />
-      <AddAct open={openAct} setOpen={setOpenAct} />
-      <AddStudent open={openS} setOpen={setOpenS} />
-      <SetRole open={openR} setOpen={setOpenR} />
+      {openAct && <AddAct open={openAct} setOpen={setOpenAct} />}
+      {openS && <AddStudent open={openS} setOpen={setOpenS} />}
+      {openR && <SetRole open={openR} setOpen={setOpenR} />}
     </div>
   );
 }
