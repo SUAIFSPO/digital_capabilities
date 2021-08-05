@@ -146,15 +146,15 @@ fun sendPhoto(context: AppCompatActivity, photoFile: File, function: (String?) -
                 function(fio)
 
             } else {
+                var errorMessage: String? = null
+
                 try {
-                    val errorMessage =
-                        JSONObject(response.errorBody()!!.string()).getString("error")
-                    context.showToast(errorMessage)
+                    errorMessage = JSONObject(response.errorBody()!!.string()).getString("error")
                 } catch (e: Exception) {
                     context.showToast(e.message.toString())
                 }
 
-                function(null)
+                function(errorMessage)
             }
         }
 
