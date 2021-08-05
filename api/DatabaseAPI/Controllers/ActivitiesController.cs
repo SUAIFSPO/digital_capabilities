@@ -205,5 +205,20 @@ namespace DatabaseAPI.Controllers
             }
             return Ok();
         }
+
+        [HttpPost("setLink")]
+        public IActionResult SetLink([FromForm]int id, [FromForm]string newLink)
+        {
+            if(_db.Activities.Any(a => a.Id == id))
+            {
+                var activity = _db.Activities.First(a => a.Id == id);
+                activity.Link = newLink;
+                activity.IsRecorded = true;
+
+                _db.SaveChanges();
+                return Ok();
+            }
+            return BadRequest();
+        }
     }
 }
