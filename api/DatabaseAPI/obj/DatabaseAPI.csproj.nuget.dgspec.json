@@ -38,6 +38,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "DlibDotNet": {
+              "target": "Package",
+              "version": "[19.21.0.20210302, )"
+            },
             "Ical.Net": {
               "target": "Package",
               "version": "[4.2.0, )"

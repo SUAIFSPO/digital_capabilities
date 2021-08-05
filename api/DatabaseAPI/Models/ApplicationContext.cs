@@ -25,6 +25,11 @@ namespace DatabaseAPI.Models
                 .HasMany(a => a.Listeners)
                 .WithOne(g => g.Activity)
                 .HasForeignKey(g => g.ActivityId);
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Groups)
+                .WithOne(g => g.User)
+                .HasForeignKey(g => g.UserId);
         }
 
         private void Init()
@@ -155,7 +160,7 @@ namespace DatabaseAPI.Models
                 Name = "Recovery",
                 Password = "rec",
                 Type = "user",
-                RecoveryWord = "recword3"
+                RecoveryWord = "recword3",
             });
 
 

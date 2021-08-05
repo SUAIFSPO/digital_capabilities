@@ -24,6 +24,7 @@
     ".NETCoreApp,Version=v3.1": {
       "DatabaseAPI/1.0.0": {
         "dependencies": {
+          "DlibDotNet": "19.21.0.20210302",
           "Ical.Net": "4.2.0",
           "Microsoft.EntityFrameworkCore": "5.0.8",
           "Microsoft.EntityFrameworkCore.Sqlite": "5.0.8",
@@ -302,6 +303,72 @@
           "DatabaseAPI.dll": {}
         }
       },
+      "DlibDotNet/19.21.0.20210302": {
+        "dependencies": {
+          "System.Drawing.Common": "5.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/DlibDotNet.dll": {
+            "assemblyVersion": "19.21.0.0",
+            "fileVersion": "19.21.0.0"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/centos-x64/native/libDlibDotNetNative.so": {
+            "rid": "centos-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/centos-x64/native/libDlibDotNetNativeDnn.so": {
+            "rid": "centos-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x64/native/libDlibDotNetNative.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x64/native/libDlibDotNetNativeDnn.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-x64/native/libDlibDotNetNative.dylib": {
+            "rid": "osx-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-x64/native/libDlibDotNetNativeDnn.dylib": {
+            "rid": "osx-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/DlibDotNetNative.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "19.21.0.0"
+          },
+          "runtimes/win-x64/native/DlibDotNetNativeDnn.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "19.21.0.0"
+          },
+          "runtimes/win-x86/native/DlibDotNetNative.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "19.21.0.0"
+          },
+          "runtimes/win-x86/native/DlibDotNetNativeDnn.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "19.21.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/DlibDotNet.dll": {}
+        }
+      },
       "Ical.Net/4.2.0": {
         "dependencies": {
           "NodaTime": "3.0.0"
@@ -553,6 +620,26 @@
           "lib/netcoreapp3.0/Microsoft.Extensions.Primitives.dll": {}
         }
       },
+      "Microsoft.NETCore.Platforms/5.0.0": {},
+      "Microsoft.Win32.SystemEvents/5.0.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "5.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Win32.SystemEvents.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netcoreapp3.0/Microsoft.Win32.SystemEvents.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          }
+        }
+      },
       "NodaTime/3.0.0": {
         "dependencies": {
           "System.Runtime.CompilerServices.Unsafe": "4.7.1"
@@ -716,6 +803,34 @@
         },
         "compile": {
           "lib/netstandard1.3/System.Diagnostics.DiagnosticSource.dll": {}
+        }
+      },
+      "System.Drawing.Common/5.0.1": {
+        "dependencies": {
+          "Microsoft.Win32.SystemEvents": "5.0.0"
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/System.Drawing.Common.dll": {
+            "assemblyVersion": "5.0.0.1",
+            "fileVersion": "5.0.321.7212"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/unix/lib/netcoreapp3.0/System.Drawing.Common.dll": {
+            "rid": "unix",
+            "assetType": "runtime",
+            "assemblyVersion": "5.0.0.1",
+            "fileVersion": "5.0.321.7212"
+          },
+          "runtimes/win/lib/netcoreapp3.0/System.Drawing.Common.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "5.0.0.1",
+            "fileVersion": "5.0.321.7212"
+          }
+        },
+        "compile": {
+          "ref/netcoreapp3.0/System.Drawing.Common.dll": {}
         }
       },
       "System.Memory/4.5.3": {},
@@ -2362,6 +2477,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "DlibDotNet/19.21.0.20210302": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-tlNrqnhk6BSAHWB21DuH59oXQYv+PR7ih3xCxg4aavXKI0akFB4LimIsHGHvNu5/LF4PKBGZ2WBJ0DPvHLVg9g==",
+      "path": "dlibdotnet/19.21.0.20210302",
+      "hashPath": "dlibdotnet.19.21.0.20210302.nupkg.sha512"
+    },
     "Ical.Net/4.2.0": {
       "type": "package",
       "serviceable": true,
@@ -2495,6 +2617,20 @@
       "path": "microsoft.extensions.primitives/5.0.0",
       "hashPath": "microsoft.extensions.primitives.5.0.0.nupkg.sha512"
     },
+    "Microsoft.NETCore.Platforms/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VyPlqzH2wavqquTcYpkIIAQ6WdenuKoFN0BdYBbCWsclXacSOHNQn66Gt4z5NBqEYW0FAPm5rlvki9ZiCij5xQ==",
+      "path": "microsoft.netcore.platforms/5.0.0",
+      "hashPath": "microsoft.netcore.platforms.5.0.0.nupkg.sha512"
+    },
+    "Microsoft.Win32.SystemEvents/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Bh6blKG8VAKvXiLe2L+sEsn62nc1Ij34MrNxepD2OCrS5cpCwQa9MeLyhVQPQ/R4Wlzwuy6wMK8hLb11QPDRsQ==",
+      "path": "microsoft.win32.systemevents/5.0.0",
+      "hashPath": "microsoft.win32.systemevents.5.0.0.nupkg.sha512"
+    },
     "NodaTime/3.0.0": {
       "type": "package",
       "serviceable": true,
@@ -2550,6 +2686,13 @@
       "sha512": "sha512-uXQEYqav2V3zP6OwkOKtLv+qIi6z3m1hsGyKwXX7ZA7htT4shoVccGxnJ9kVRFPNAsi1ArZTq2oh7WOto6GbkQ==",
       "path": "system.diagnostics.diagnosticsource/5.0.1",
       "hashPath": "system.diagnostics.diagnosticsource.5.0.1.nupkg.sha512"
+    },
+    "System.Drawing.Common/5.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3IN8zWk395Qu+7wnoTbebEjdP3izZBBKAahgWuC0jp9tCgTdUFN6KsrqQl0I3L+ptZD/LvwKjgFp1u+x3+p+DA==",
+      "path": "system.drawing.common/5.0.1",
+      "hashPath": "system.drawing.common.5.0.1.nupkg.sha512"
     },
     "System.Memory/4.5.3": {
       "type": "package",

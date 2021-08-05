@@ -14,5 +14,9 @@ namespace DatabaseAPI.Models
         public Activity Activity { get; set; }
         [JsonIgnore]
         public int ActivityId { get; set; }
+        [JsonIgnore]
+        public User? User { get; set; }
+        [JsonIgnore]
+        public int? UserId { get; set; }
     }
 }
