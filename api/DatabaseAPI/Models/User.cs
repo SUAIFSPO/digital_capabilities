@@ -16,6 +16,7 @@ namespace DatabaseAPI.Models
         public byte[] Photo { get; set; }
         public List<Group> Groups { get; set; }
         public string Face { get; set; }
+        public long FaceSize { get; set; }
         public string Type { get; set; }
         [JsonIgnore]
         public string Token { get; set; }
