@@ -1,6 +1,10 @@
 import "./styles.css";
+import { useState } from "react";
 import { format } from "date-fns";
-const Card = ({ startTime, endTime, fio, name, groups, link }) => {
+import AddLink from "../AddLink";
+const Card = ({ startTime, endTime, fio, name, groups, link, id }) => {
+  const [open, setOpen] = useState(false);
+  const isDate = new Date() > new Date(endTime);
   return (
     <div className='card'>
       <p>{name}</p>
@@ -15,9 +19,19 @@ const Card = ({ startTime, endTime, fio, name, groups, link }) => {
           <span key={number}>{`${number}, `}</span>
         ))}
       </p>
-      <button onClick={() => alert(link)} style={{ cursor: "pointer" }}>
-        Подключиться
+      <button
+        onClick={() => {
+          if (isDate) {
+            setOpen(true);
+          } else {
+            alert(link);
+          }
+        }}
+        style={{ cursor: "pointer" }}
+      >
+        {isDate ? "Добавить материал" : "Подключиться"}
       </button>
+      {open && <AddLink open={open} setOpen={setOpen} id={id} />}
     </div>
   );
 };
