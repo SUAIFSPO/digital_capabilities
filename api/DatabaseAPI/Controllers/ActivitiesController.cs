@@ -127,7 +127,7 @@ namespace DatabaseAPI.Controllers
         public IActionResult CreateNewActivity([FromForm] Activity activity, [FromForm]string listeners)
         {
             var user = GetUser();
-            if(user != null && user.Type == "administrator" && !string.IsNullOrEmpty(listeners))
+            if(user != null && user.Type == "administrator" && !string.IsNullOrEmpty(listeners) && !string.IsNullOrEmpty(activity.Name))
             {
                 _db.Activities.Add(activity);
                 activity.Listeners = listeners.Split(";").Select(s => _db.Groups.Where(g => g.Number == s).First()).ToList();

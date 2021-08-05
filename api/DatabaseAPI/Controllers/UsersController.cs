@@ -73,16 +73,17 @@ namespace DatabaseAPI.Controllers
         }
 
         [HttpPost("setUserGroups")]
-        public IActionResult SetUserGroups([FromForm]string login, [FromForm]string groups, [FromForm]Activity activity)
+        public IActionResult SetUserGroups([FromForm]string login, [FromForm]string groups, [FromForm]string activity)
         {
             if(_db.Users.Any(u => u.Login == login))
             {
                 var user = _db.Users.First(u => u.Login == login);
-                if(groups != null && groups.Length > 0)
+                if(activity != null)
+                    user.Activity = _db.Activities.First(a => a.Name == activity);
+                if (groups != null && groups.Length > 0)
                 {
                     var groupsList = groups.Split("_");
                     user.Type = "curator";
-                    user.Activity = activity;
                     user.Groups = new List<Group>();
                     foreach (var group in groupsList)
                     {
@@ -95,7 +96,8 @@ namespace DatabaseAPI.Controllers
                 else
                 {
                     user.Type = "user";
-                    user.Groups.Clear();
+                    if(user.Groups != null)
+                        user.Groups.Clear();
                 }
                 
                 _db.SaveChanges();
@@ -135,28 +137,35 @@ namespace DatabaseAPI.Controllers
         {
             var first = GetFaceLines(file.OpenReadStream());
 
+            var curUser = GetUser();
+
             User result = null;
             int maxMatched = 0;
-            foreach (var user in _db.Users)
+            foreach(var group in curUser.Groups)
             {
-                int matched = 0;
-                if (user.Face == null)
-                    continue;
-                List<double> userLines = user.Face.Split(";").Select(l => double.Parse(l)).ToList();
-                int points = Math.Min(userLines.Count, first.Count);
-                for (int i = 0; i < points; i++)
+                foreach (var user in _db.Users.Where(u => u.Groups.Contains(group)))
                 {
-                    if(Math.Abs(first[i] - userLines[i]) <= diff)
+                    int matched = 0;
+                    if (user.Face == null)
+                        continue;
+
+                    List<double> userLines = user.Face.Split(";").Select(l => double.Parse(l)).ToList();
+                    int points = Math.Min(userLines.Count, first.Count);
+                    for (int i = 0; i < points; i++)
                     {
-                        matched++;
+                        if (Math.Abs(first[i] - userLines[i]) <= diff)
+                        {
+                            matched++;
+                        }
+                    }
+                    if (matched > points / 2 && matched > maxMatched)
+                    {
+                        maxMatched = matched;
+                        result = user;
                     }
                 }
-                if (matched > points / 2 && matched > maxMatched)
-                {
-                    maxMatched = matched;
-                    result = user;
-                }
             }
+            
 
             if(result != null)
             {
@@ -170,6 +179,7 @@ namespace DatabaseAPI.Controllers
         {
             return _db.Users
                 .Include(u => u.Groups)
+                .Include(u => u.Activity)
                 .ToList();
         }
 

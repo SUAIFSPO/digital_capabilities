@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DatabaseAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseAPI.Controllers
 {
@@ -22,7 +23,9 @@ namespace DatabaseAPI.Controllers
             {
                 if(_db.Users.Any(u => u.Token == token))
                 {
-                    return _db.Users.Where(u => u.Token == token).First();
+                    return _db.Users.Where(u => u.Token == token)
+                        .Include(u => u.Groups)
+                        .First();
                 }
             }
             return null;
