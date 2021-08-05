@@ -32,7 +32,7 @@ fun login(
     val loginRB: RequestBody = login.toRequestBody("text/plain".toMediaTypeOrNull())
     val passwordRB: RequestBody = password.toRequestBody("text/plain".toMediaTypeOrNull())
 
-    val call = Server.createServer("http://192.168.0.42:5000").auth(loginRB, passwordRB)
+    val call = Server.createServer("http://3.17.59.226").auth(loginRB, passwordRB)
 
     call.enqueue(object : Callback<AuthResponse> {
         override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
@@ -91,7 +91,7 @@ fun recoveryPassword(
     val loginRB: RequestBody = login.toRequestBody("text/plain".toMediaTypeOrNull())
     val wordRB: RequestBody = word.toRequestBody("text/plain".toMediaTypeOrNull())
 
-    val call = Server.createServer("http://192.168.0.42:5000").passwordRecovery(loginRB, wordRB)
+    val call = Server.createServer("http://3.17.59.226").passwordRecovery(loginRB, wordRB)
 
     call.enqueue(object : Callback<PasswordRecoveryResponse> {
         override fun onResponse(
@@ -132,7 +132,7 @@ fun sendPhoto(context: AppCompatActivity, photoFile: File, function: (String?) -
 
     val token = TokenUtil.getToken(context).toString()
 
-    val call = Server.createServer("http://192.168.0.42:5000").sendPhoto(token, body)
+    val call = Server.createServer("http://3.17.59.226").sendPhoto(token, body)
 
     call.enqueue(object : Callback<ResultResponse> {
         override fun onResponse(
@@ -146,14 +146,7 @@ fun sendPhoto(context: AppCompatActivity, photoFile: File, function: (String?) -
                 function(fio)
 
             } else {
-                var errorMessage: String? = null
-
-                try {
-                    errorMessage = JSONObject(response.errorBody()!!.string()).getString("error")
-                } catch (e: Exception) {
-                    context.showToast(e.message.toString())
-                }
-
+                val errorMessage = "Студент не входит в ваши учебные группы"
                 function(errorMessage)
             }
         }

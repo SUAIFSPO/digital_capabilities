@@ -51,11 +51,11 @@ class ResultActivity : AppCompatActivity() {
     private val getImage: ActivityResultLauncher<String> =
         registerForActivityResult(ActivityResultContracts.GetContent()) { imageUri: Uri? ->
 
-            loadingDialog?.show()
-
             if (imageUri != null) {
 
                 photoFile = FileUtil().from(this, imageUri)
+
+                loadingDialog?.show()
 
                 sendPhoto(this, photoFile) { fio: String? ->
 
