@@ -9,12 +9,19 @@ android {
 
     defaultConfig {
         applicationId "com.jerael.universityscheduler"
-        minSdk 21
+        minSdk 27
         targetSdk 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            def versionName = variant.versionName
+            outputFileName = "university_scheduler_${versionName}.apk"
+        }
     }
 
     buildTypes {
@@ -46,4 +53,5 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
+    implementation 'com.google.code.gson:gson:2.8.7'
 }

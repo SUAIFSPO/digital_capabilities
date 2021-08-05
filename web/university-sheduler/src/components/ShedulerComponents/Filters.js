@@ -29,7 +29,7 @@ const Filter = () => {
       <Autocomplete
         id='combo-box-demo'
         options={fio}
-        getOptionSelected={(data) => dispatch(setFioFilter(data))}
+        getOptionSelected={(data, a) => dispatch(setFioFilter(a))}
         getOptionLabel={({ activity, fio }) => `${fio} (${activity})`}
         selectOnFocus={true}
         onSelect={(data) => setName(data.target.value)}

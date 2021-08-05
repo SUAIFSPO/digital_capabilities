@@ -2,16 +2,24 @@ package com.jerael.universityscheduler.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.jerael.universityscheduler.R
 import com.jerael.universityscheduler.utils.login
 import com.jerael.universityscheduler.utils.showToast
 import kotlinx.android.synthetic.main.activity_auth.*
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
+
+        this.title = "Авторизация"
 
         button_login.setOnClickListener {
 
@@ -20,9 +28,12 @@ class AuthActivity : AppCompatActivity() {
 
             if (checkFields(login, password)) {
 
-                login(this, login, password) {
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
+                login(this, login, password) { isSuccess ->
+
+                    if (isSuccess) {
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
+                    }
                 }
             }
 
