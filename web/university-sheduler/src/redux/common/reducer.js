@@ -1,6 +1,7 @@
 import { AUTH, FIO_FILTER, GROUP_FILTER, ACTIVITY_FILTER } from "./constants";
 const defaultState = {
-  token: "",
+  token: "359FF826C7E0FE0BC492832DAE9641D9",
+  type: "administrator",
 };
 
 export const commonReducer = (state = defaultState, action) => {

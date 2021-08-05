@@ -9,3 +9,34 @@
   top: 50%;
   left: 50%;
 }
+.file-drop {
+  height: 100%;
+  width: 100%;
+}
+.file-drop-target {
+  height: 100%;
+  width: 100%;
+}
+.deletePhoto {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
+.deletePhoto:hover {
+  color: red;
+}
+.input__file {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+}
+
+.input__file-button {
+  cursor: pointer;
+}
+.text-p1 {
+  margin-top: 50px;
+  cursor: pointer;
+  color: green;
+}
